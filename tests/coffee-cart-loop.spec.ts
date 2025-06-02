@@ -28,7 +28,7 @@ async function submitOrder(
   email: string,
   check = false
 ) {
-  await fillRegistrationData(page);
+  // await fillRegistrationData(page);
   await page.getByRole("textbox", { name: "Name" }).fill(name);
   await page.getByRole("textbox", { name: "Email" }).fill(email);
   if (check) {
@@ -82,6 +82,26 @@ test("LS-002 order every coffee drink", async ({ page }) => {
 
     await page.locator(".cup-body:not(.disabled-hover)").nth(i).click();
   }
+});
+
+test("CC-001 order multiple coffee drinks", async ({ page }) => {
+  await page.goto("https://coffee-cart.app/");
+
+  // Order 2 Cappuccinos
+  await page.locator('[data-test="Cappuccino"]').click();
+  await page.locator('[data-test="Cappuccino"]').click();
+
+  // Order 1 Espresso
+  await page.locator('[data-test="Espresso"]').click();
+
+  // Proceed to checkout
+  await clickOnCheckout(page);
+
+  // Submit the order
+  await submitOrder(page, "Test Customer", "test@example.com", true);
+
+  // Verify order completion
+  await expect(page.getByText("Thanks for your order")).toBeVisible();
 });
 
 // function declaration
