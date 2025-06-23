@@ -1,20 +1,87 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 
-test("register user - should be registered", async ({ page, request }) => {
-  await page.goto("https://demo.learnwebdriverio.com/register");
+type TextControls = {
+  text?: string;
+  search?: string;
+  password?: string;
+  email?: string;
+  url?: string;
+  tel?: string;
+};
 
-  await page.getByRole("textbox", { name: "Username" }).click();
-  await page.getByRole("textbox", { name: "Username" }).fill("psp1234");
-  await page.getByRole("textbox", { name: "Email" }).fill("psp1234@gm.com");
-  await page.getByRole("textbox", { name: "Password" }).fill("1234");
-  await page.getByRole("button", { name: "Sign up" }).click();
+test("test1", async ({ page }) => {
+  const formData = {
+    text: "this is my input",
+    search: "this is my search",
+    password: "asffsaf",
+    email: "psp@gm.lame",
+    url: "https://testr.com",
+    tel: "0982324942",
+  };
 
-  await page.getByRole("button", { name: "Sign up" }).click();
-  await page.getByRole("button", { name: "Sign up" }).click();
+  const intputElementsPage = new InputElements(page);
 
-  await page.getByTestId("layout-header-user-logon").click();
+  const locator = intputElementsPage.getInputLocator("text");
 
-  await expect(page.getByRole("link", { name: "psp123" })).toBeVisible();
+  await page.goto(
+    "https://testpages.eviltester.com/styled/reference/input.html"
+  );
 
-  await request.storageState();
+  await intputElementsPage.fillTextControls(formData);
 });
+
+class InputElements {
+  page: Page;
+
+  getInputLocator = (inputLabel: string) =>
+    this.page.locator(`//input[@name='${inputLabel}']`);
+
+  constructor(page: Page) {
+    this.page = page;
+  }
+
+  async fillTextControls(formData: TextControls) {
+    for (const key in formData) {
+      await this.page.locator(`//input[@name='${key}']`).fill(formData[key]);
+    }
+  }
+
+  async fillTextCAsArray(formData: TextControls) {
+    for (const [key, value] of Object.entries(formData)) {
+      await this.page.locator(`//input[@name='${key}']`).fill(value);
+    }
+  }
+}
+
+class HomePage {
+  page: Page;
+
+  constructor(page: Page) {
+    this.page = page;
+  }
+
+  async clickArticleByTitle(title: string) {
+    await this.page
+      .locator(`[data-qa-type="preview-title"]`, { hasText: title })
+      .click();
+  }
+
+  async clickArticleByNumber(number = 0) {
+    await this.page
+      .locator(`[data-qa-type="article-preview"]`)
+      .nth(number)
+      .click();
+  }
+
+  async clickOnAllArticle() {
+    for (let i = 0; i <= 10; i++) {
+      await this.clickArticleByNumber(i);
+    }
+  }
+
+  async fillTextCAsArray(formData: TextControls) {
+    for (const [key, value] of Object.entries(formData)) {
+      await this.page.locator(`//input[@name='${key}']`).fill(value);
+    }
+  }
+}

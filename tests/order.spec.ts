@@ -42,3 +42,46 @@ test(
     // await page.locator("").waitFor({ state: "visible" });
   }
 );
+
+test(
+  "MQA-11111 order should be created",
+  { tag: ["@smoke", "@regression"] },
+  async ({ page }) => {
+    await page.goto("https://coffee-cart.app/");
+
+    const coffeeCups = await page
+      .locator(".cup-body:not(.disabled-hover)")
+      .all();
+
+    for (const cup of coffeeCups) {
+      await cup.click();
+    }
+
+    // for (const cup of coffeeCups) {
+    //   await cup.click();
+    // }
+
+    coffeeCups.forEach(
+      async (locator, index, coffeeArr) => await locator.click()
+    );
+
+    const random: string[] = ["asfa", "asfasf"];
+
+    console.log();
+  }
+);
+
+test(
+  "MQA-22222 order should be created",
+  { tag: ["@smoke", "@regression"] },
+  async ({ page }) => {
+    await page.goto("https://coffee-cart.app/");
+
+    for (const cup of new Array(100)) {
+      console.log(cup);
+      await page.locator('[data-test="Espresso"]').click();
+    }
+
+    console.log();
+  }
+);
