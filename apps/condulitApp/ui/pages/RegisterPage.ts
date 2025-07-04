@@ -38,7 +38,7 @@ export class RegistrationPage extends BasePage {
     this.passwordInputLocator = this.page.getByRole("textbox", {
       name: "Password",
     });
-    this.signUpButton = new Button(page, ".button");
+    this.signUpButton = new Button(page, ".btn");
   }
 
   public async registerUser(userData: UserRegistrationData) {
@@ -53,7 +53,6 @@ interface UserRegistrationData {
   username: string;
   email: string;
   password: string;
-  makeSound(): void;
 }
 
 class Button implements Clickable {

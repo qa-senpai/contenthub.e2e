@@ -1,23 +1,25 @@
-import { test, expect, Page } from "@playwright/test";
-import { RegistrationPage } from "../condulitApp/pages/RegisterPage";
+import { RegistrationPage } from "../../apps/condulitApp/ui/pages/RegisterPage";
+import { test } from "./fixture";
 
-test("register user - without email", async ({ page, request }) => {
+test("use existing storage state ", async ({ page }) => {
+  await page.goto("https://demo.learnwebdriverio.com");
+});
+
+test("register user - get state", async ({ page, context }) => {
   const registerPage = new RegistrationPage(page);
 
-  const userRegistrationData = {
-    username: "psp123",
-    email: "test@gm.com",
-    password: "125115",
-  };
-
   await page.goto("https://demo.learnwebdriverio.com/register");
+  // await registerPage.registerUser(userRegistrationData);
+  // await expect(page.locator('[data-qa-id="site-nav"]')).toContainText(
+  //   userRegistrationData.username
+  // );
 
-  await registerPage.registerUser(
-    userRegistrationData.username,
-    userRegistrationData.email,
-    userRegistrationData.password
-  );
+  const state = await context.storageState({
+    path: ".auth/storage-state.json",
+  });
 });
+
+// test.use({ storageState: ".auth/storage-state.json" });
 
 test("register user - should be registered", async ({ page, request }) => {
   // const registerPage = new RegistrationPage(page);
