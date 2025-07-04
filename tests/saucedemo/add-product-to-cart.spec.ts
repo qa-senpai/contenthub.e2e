@@ -1,5 +1,5 @@
 import { expect, chromium, Page } from "@playwright/test";
-import { test } from "./CMP/fixtures/baseFixture-1";
+import { test } from "../saucedemo/baseFixture-1";
 
 test.describe("", () => {
   /**
@@ -30,7 +30,7 @@ test.describe("", () => {
       });
 
       await test.step("login as standard_user", async () => {
-        await pageManage.loginPage.login();
+        await pageManage.loginPage.login("");
       });
 
       const locat = `//*[text() = 'Sauce Labs Backpack']/ancestor::div[@data-test='inventory-item']//*[@data-test="inventory-item-price"]`;

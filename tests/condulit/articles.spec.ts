@@ -1,7 +1,7 @@
 import { APIResponse, expect, test } from "@playwright/test";
 import fs from "fs";
-import { UserController } from "../../apps/condulitApp/api/users/UserController";
-import { UserResponse } from "../../apps/condulitApp/api/users/UserTypes";
+import { UserController } from "../../apps/condulitApp/api/UserController/UserController";
+import { UserResponse } from "../../apps/condulitApp/api/UserController/UserTypes";
 import { ArticleController } from "../../apps/condulitApp/api/ArticleController/ArticleController";
 import {
   Article,

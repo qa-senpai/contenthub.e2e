@@ -14,10 +14,10 @@
  */
 
 import { test as base, Page } from "@playwright/test";
-import { ProductPage } from "../../../apps/souceApp/ProductPage";
-import { ProductDetailsPage } from "../../../apps/souceApp/ProductDetailsPage";
-import { CartPage } from "../../../apps/souceApp/CartPage";
-import { LoginPage } from "../../../apps/souceApp/LoginPage";
+import { ProductPage } from "../../apps/souceApp/ProductPage";
+import { ProductDetailsPage } from "../../apps/souceApp/ProductDetailsPage";
+import { CartPage } from "../../apps/souceApp/CartPage";
+import { LoginPage } from "../../apps/souceApp/LoginPage";
 
 type Pages = {
   productPage: ProductPage;
@@ -41,7 +41,7 @@ export const test = base.extend<Pages>({
 
   mockServer: async ({ page }, use) => {
     page.route("*/api/products", (route) => {
-      route.fulfill({ json: mockProductsData });
+      // route.fulfill({ json: mockProductsData });
     });
 
     await use(page);

@@ -1,9 +1,5 @@
 import { test as base, Page } from "@playwright/test";
-import { ProductPage } from "../../../apps/souceApp/ProductPage";
-import { ProductDetailsPage } from "../../../apps/souceApp/ProductDetailsPage";
-import { CartPage } from "../../../apps/souceApp/CartPage";
-import { LoginPage } from "../../../apps/souceApp/LoginPage";
-import { PageManager } from "../../../apps/souceApp/PageManager";
+import { PageManager } from "../../apps/souceApp/PageManager";
 
 type Pages = {
   pageManage: PageManager;

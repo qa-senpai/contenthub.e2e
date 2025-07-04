@@ -1,7 +1,6 @@
 import { test as base, chromium, expect } from "@playwright/test";
 import fs from "fs";
 import { createRandomUserData } from "../../globalSetup";
-import { RegistrationPage } from "../../apps/condulitApp/pages/RegisterPage";
 import { USERS } from "../../utils/users";
 import { LoginPage } from "../../apps/souceApp/LoginPage";
 
